@@ -674,7 +674,7 @@
     <h3>Jetzt vormerken</h3>
     <p class="form-subtitle">Kostenlos &amp; unverbindlich — kein Abo, kein Risiko.</p>
 
-    <form id="signup-form" onsubmit="handleSubmit(event)">
+    <form id="signup-form" action="https://getform.io/f/tf6xrs24nqs" method="POST">
       <div class="row-2">
         <div class="field">
           <label for="vorname">Vorname</label>
@@ -728,32 +728,6 @@
 
 <script>
   function handleSubmit(e) {
-    e.preventDefault();
-    const form = document.getElementById('signup-form');
-    const success = document.getElementById('success');
-    
-    const formData = new FormData(form);
-
-    fetch('https://getform.io/f/tf6xrs24nqs', {
-        method: 'POST',
-        body: formData,
-        headers: {
-            'Accept': 'application/json'
-        }
-    })
-    .then(response => {
-        if (response.ok) {
-
-            form.style.display = 'none';
-            success.style.display = 'block';
-        } else {
-            alert("Fehler beim Speichern. Bitte versuche es erneut.");
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert("Netzwerkfehler. Bitte versuche es erneut.");
-    });
   }
 
   const revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
