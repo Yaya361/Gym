@@ -10,14 +10,15 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --black:    #0a0a0a;
-      --dark:     #121212;
-      --card:     #1a1a1a;
-      --border:   #2a2a2a;
-      --accent:   #c8f04c;   /* electric lime – energy without being cliché */
-      --accent2:  #8ffa00;
-      --text:     #e8e8e8;
-      --muted:    #666;
+      --black:    #0f1923;   /* deep navy – not pure black */
+      --dark:     #162030;   /* slightly lighter navy */
+      --card:     #1e2d3d;   /* card surface */
+      --border:   #2a3f55;   /* visible but subtle borders */
+      --accent:   #3b9eff;   /* electric blue */
+      --accent2:  #74bcff;   /* lighter blue hover */
+      --accent-bg: rgba(59,158,255,0.09);
+      --text:     #d8e6f0;   /* cool light text */
+      --muted:    #6b8fa8;
       --white:    #ffffff;
     }
 
@@ -37,8 +38,8 @@
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
       padding: 1.2rem 5%;
-      background: rgba(10,10,10,0.85);
-      backdrop-filter: blur(12px);
+      background: rgba(15,25,35,0.88);
+      backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
     }
     .logo {
@@ -50,12 +51,12 @@
     .logo span { color: var(--accent); }
     nav a.cta-nav {
       background: var(--accent);
-      color: var(--black);
+      color: var(--white);
       font-weight: 600;
       font-size: 0.85rem;
       letter-spacing: 0.06em;
       padding: 0.55rem 1.4rem;
-      border-radius: 2px;
+      border-radius: 3px;
       text-decoration: none;
       text-transform: uppercase;
       transition: background 0.2s;
@@ -69,24 +70,23 @@
       padding: 7rem 5% 4rem;
       position: relative;
       overflow: hidden;
+      background: linear-gradient(135deg, #0f1923 0%, #162030 60%, #0d1e30 100%);
     }
-    /* ambient grid */
     .hero::before {
       content: '';
       position: absolute; inset: 0;
       background-image:
-        linear-gradient(rgba(200,240,76,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(200,240,76,0.04) 1px, transparent 1px);
+        linear-gradient(rgba(59,158,255,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59,158,255,0.06) 1px, transparent 1px);
       background-size: 60px 60px;
       pointer-events: none;
     }
-    /* glow blob */
     .hero::after {
       content: '';
       position: absolute;
-      width: 600px; height: 600px;
-      background: radial-gradient(circle, rgba(200,240,76,0.08) 0%, transparent 70%);
-      top: -100px; right: -150px;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(59,158,255,0.13) 0%, transparent 65%);
+      top: -120px; right: -180px;
       pointer-events: none;
     }
 
@@ -101,10 +101,11 @@
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--accent);
-      border: 1px solid rgba(200,240,76,0.35);
+      border: 1px solid rgba(59,158,255,0.4);
       padding: 0.3rem 0.9rem;
       border-radius: 2px;
       margin-bottom: 1.5rem;
+      background: var(--accent-bg);
     }
     h1 {
       font-family: 'Bebas Neue', sans-serif;
@@ -121,7 +122,7 @@
     }
     .hero-sub {
       font-size: 1.1rem;
-      color: #aaa;
+      color: #8fb8d8;
       max-width: 520px;
       margin-bottom: 2.5rem;
       line-height: 1.7;
@@ -131,13 +132,13 @@
     }
     .btn-primary {
       background: var(--accent);
-      color: var(--black);
+      color: var(--white);
       font-weight: 700;
       font-size: 0.9rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       padding: 0.9rem 2.2rem;
-      border-radius: 2px;
+      border-radius: 3px;
       text-decoration: none;
       transition: background 0.2s, transform 0.15s;
       display: inline-block;
@@ -187,7 +188,7 @@
       margin-bottom: 1rem;
     }
     .section-sub {
-      color: #888;
+      color: var(--muted);
       max-width: 520px;
       margin-bottom: 3.5rem;
       font-size: 0.95rem;
@@ -196,7 +197,7 @@
     .usp-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.5px;
+      gap: 1px;
       background: var(--border);
     }
     .usp-card {
@@ -204,7 +205,7 @@
       padding: 2.2rem;
       transition: background 0.25s;
     }
-    .usp-card:hover { background: #1f1f1f; }
+    .usp-card:hover { background: #243547; }
     .usp-icon {
       font-size: 1.8rem;
       margin-bottom: 1rem;
@@ -217,7 +218,7 @@
       color: var(--white);
       margin-bottom: 0.6rem;
     }
-    .usp-text { font-size: 0.88rem; color: #888; line-height: 1.65; }
+    .usp-text { font-size: 0.88rem; color: #7da8c8; line-height: 1.65; }
 
     /* ── VS SECTION ──────────────────────────────────── */
     .vs-section {
@@ -241,15 +242,15 @@
     .compare-table td {
       padding: 0.9rem 1.5rem;
       border-bottom: 1px solid var(--border);
-      color: #bbb;
+      color: #8fb8d8;
     }
     .compare-table td.highlight {
       color: var(--white);
       font-weight: 500;
     }
-    .compare-table tr:hover td { background: rgba(255,255,255,0.02); }
+    .compare-table tr:hover td { background: rgba(59,158,255,0.04); }
     .check { color: var(--accent); font-size: 1rem; }
-    .cross { color: #555; }
+    .cross { color: #3a5568; }
 
     /* ── FORM SECTION ────────────────────────────────── */
     .form-section {
@@ -264,21 +265,21 @@
     }
 
     .form-left h2 { margin-bottom: 0.8rem; }
-    .form-left p { color: #888; font-size: 0.9rem; line-height: 1.7; }
+    .form-left p { color: var(--muted); font-size: 0.9rem; line-height: 1.7; }
     .urgency-box {
       margin-top: 2rem;
       border-left: 3px solid var(--accent);
       padding: 1rem 1.2rem;
-      background: rgba(200,240,76,0.05);
-      border-radius: 0 2px 2px 0;
+      background: var(--accent-bg);
+      border-radius: 0 3px 3px 0;
     }
     .urgency-box strong { color: var(--accent); display: block; margin-bottom: 0.3rem; font-size: 0.85rem; letter-spacing: 0.06em; text-transform: uppercase; }
-    .urgency-box span { font-size: 0.82rem; color: #999; }
+    .urgency-box span { font-size: 0.82rem; color: var(--muted); }
 
     .form-card {
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 4px;
+      border-radius: 6px;
       padding: 2.5rem;
     }
     .form-card h3 {
@@ -297,16 +298,16 @@
       font-weight: 600;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: #777;
+      color: #6b8fa8;
       margin-bottom: 0.4rem;
     }
     .field input, .field select {
       width: 100%;
-      background: #111;
+      background: #162030;
       border: 1px solid var(--border);
       color: var(--white);
       padding: 0.75rem 1rem;
-      border-radius: 2px;
+      border-radius: 3px;
       font-size: 0.9rem;
       font-family: 'Inter', sans-serif;
       outline: none;
@@ -316,15 +317,17 @@
     }
     .field input:focus, .field select:focus {
       border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(59,158,255,0.12);
     }
-    .field input::placeholder { color: #444; }
+    .field input::placeholder { color: #3a5568; }
+    .field select option { background: #162030; }
 
     .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 
     .submit-btn {
       width: 100%;
       background: var(--accent);
-      color: var(--black);
+      color: var(--white);
       border: none;
       font-family: 'Inter', sans-serif;
       font-size: 0.9rem;
@@ -332,7 +335,7 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
       padding: 1rem;
-      border-radius: 2px;
+      border-radius: 3px;
       cursor: pointer;
       margin-top: 0.5rem;
       transition: background 0.2s, transform 0.15s;
@@ -340,7 +343,7 @@
     .submit-btn:hover { background: var(--accent2); transform: translateY(-1px); }
     .form-legal {
       font-size: 0.7rem;
-      color: #444;
+      color: #3a5568;
       margin-top: 1rem;
       line-height: 1.5;
     }
@@ -359,7 +362,7 @@
       color: var(--accent);
       margin-bottom: 0.5rem;
     }
-    .success-msg p { font-size: 0.85rem; color: #888; }
+    .success-msg p { font-size: 0.85rem; color: var(--muted); }
 
     /* ── FOOTER ──────────────────────────────────────── */
     footer {
@@ -367,6 +370,7 @@
       padding: 2rem 5%;
       display: flex; justify-content: space-between; align-items: center;
       flex-wrap: wrap; gap: 1rem;
+      background: var(--dark);
     }
     footer .logo { font-size: 1.2rem; }
     footer p { font-size: 0.75rem; color: var(--muted); }
@@ -599,7 +603,6 @@
     const success = document.getElementById('success');
     form.style.display = 'none';
     success.style.display = 'block';
-    // Here you'd normally POST to your backend / form service
   }
 </script>
 </body>
