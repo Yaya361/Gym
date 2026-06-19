@@ -162,7 +162,11 @@
       grid-template-columns: repeat(4, 1fr);
       gap: 1rem;
     }
-    .stat { text-align: center; }
+    .stat {
+      text-align: center;
+      padding: 0.6rem 0.5rem;
+      border-radius: var(--radius-md);
+    }
     .stat-num {
       font-size: 2.6rem;
       font-weight: 700;
@@ -234,12 +238,13 @@
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
       padding: 2rem;
-      transition: box-shadow 0.25s, transform 0.25s;
+      transition: box-shadow 0.35s ease, transform 0.35s ease, border-color 0.35s ease;
       backdrop-filter: blur(10px);
     }
     .usp-card:hover {
-      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
-      transform: translateY(-2px);
+      box-shadow: 0 16px 40px rgba(0,113,227,0.14);
+      transform: translateY(-6px) scale(1.015);
+      border-color: rgba(0,113,227,0.35);
     }
     .usp-icon-wrap {
       width: 44px; height: 44px;
@@ -248,6 +253,10 @@
       display: flex; align-items: center; justify-content: center;
       font-size: 1.3rem;
       margin-bottom: 1.1rem;
+      transition: transform 0.35s ease;
+    }
+    .usp-card:hover .usp-icon-wrap {
+      transform: rotate(-6deg) scale(1.08);
     }
     .usp-title {
       font-size: 1rem;
@@ -270,6 +279,7 @@
       overflow: hidden;
       border: 1px solid var(--border);
       background: #fff;
+      box-shadow: 0 20px 50px rgba(0,30,70,0.08);
     }
     .compare-table {
       width: 100%;
@@ -297,11 +307,15 @@
       font-weight: 300;
     }
     .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table tbody tr:nth-child(even) td {
+      background: rgba(0,113,227,0.05);
+    }
     .compare-table td.col-us {
       color: var(--text);
       font-weight: 500;
     }
-    .compare-table tr:hover td { background: rgba(0,113,227,0.03); }
+    .compare-table tr:hover td { background: rgba(0,113,227,0.1); }
+    .compare-table td { transition: background 0.25s ease; }
     .check { color: var(--accent); }
     .cross { color: var(--text3); }
 
@@ -331,13 +345,32 @@
       padding: 0.4rem 1rem;
       border-radius: 980px;
       margin-top: 1rem;
+      position: relative;
+    }
+    .pill-badge::before {
+      content: '';
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%   { box-shadow: 0 0 0 0 rgba(0,113,227,0.5); }
+      70%  { box-shadow: 0 0 0 6px rgba(0,113,227,0); }
+      100% { box-shadow: 0 0 0 0 rgba(0,113,227,0); }
     }
 
     .form-card {
-      background: var(--bg2);
+      background: #eaf3fc;
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
       padding: 2.5rem;
+      box-shadow: 0 20px 50px rgba(0,113,227,0.1);
+      transition: box-shadow 0.35s ease;
+    }
+    .form-card:hover {
+      box-shadow: 0 24px 60px rgba(0,113,227,0.15);
     }
     .form-card h3 {
       font-size: 1.4rem;
@@ -401,7 +434,8 @@
       transition: background 0.2s, transform 0.15s;
       letter-spacing: -0.01em;
     }
-    .submit-btn:hover { background: var(--accent-h); transform: scale(1.01); }
+    .submit-btn:hover { background: var(--accent-h); transform: scale(1.015); box-shadow: 0 8px 24px rgba(0,113,227,0.35); }
+    .submit-btn:active { transform: scale(0.98); }
 
     .form-legal {
       font-size: 0.7rem;
@@ -443,6 +477,51 @@
     .hero-sub      { animation: fadeUp 0.6s ease both 0.25s; }
     .hero-cta      { animation: fadeUp 0.6s ease both 0.35s; }
 
+    /* gentle floating glow in hero for a bit of life */
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(52,170,220,0.08) 0%, transparent 65%);
+      bottom: -250px; right: -100px;
+      pointer-events: none;
+      animation: float 9s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translate(0,0); }
+      50%      { transform: translate(-20px, -25px); }
+    }
+
+    /* scroll-reveal: hidden until .is-visible is added by JS */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s cubic-bezier(.2,.7,.3,1), transform 0.7s cubic-bezier(.2,.7,.3,1);
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    /* staggered children inside a revealed group */
+    .reveal-stagger > * {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s cubic-bezier(.2,.7,.3,1), transform 0.6s cubic-bezier(.2,.7,.3,1);
+    }
+    .reveal-stagger.is-visible > * { opacity: 1; transform: translateY(0); }
+    .reveal-stagger.is-visible > *:nth-child(1) { transition-delay: 0.02s; }
+    .reveal-stagger.is-visible > *:nth-child(2) { transition-delay: 0.09s; }
+    .reveal-stagger.is-visible > *:nth-child(3) { transition-delay: 0.16s; }
+    .reveal-stagger.is-visible > *:nth-child(4) { transition-delay: 0.23s; }
+    .reveal-stagger.is-visible > *:nth-child(5) { transition-delay: 0.30s; }
+    .reveal-stagger.is-visible > *:nth-child(6) { transition-delay: 0.37s; }
+
+    /* hover life on stat numbers */
+    .stat-num { transition: transform 0.3s ease; }
+    .stat:hover .stat-num { transform: scale(1.06); }
+    .stat:hover .stat-label { color: var(--accent); }
+    .stat-label { transition: color 0.3s ease; }
+
     @media (max-width: 640px) {
       .stats-bar { grid-template-columns: repeat(2,1fr); }
       .row-2 { grid-template-columns: 1fr; }
@@ -473,7 +552,7 @@
 </section>
 
 <!-- STATS -->
-<div class="stats-bar">
+<div class="stats-bar reveal-stagger">
   <div class="stat">
     <div class="stat-num">24<span>/7</span></div>
     <div class="stat-label">Immer geöffnet</div>
@@ -487,45 +566,39 @@
     <div class="stat-label">Trainer-Pflicht</div>
   </div>
   <div class="stat">
-    <div class="stat-num">1<span>mo</span></div>
+    <div class="stat-num">1<span> Monat</span></div>
     <div class="stat-label">Kündigungsfrist</div>
   </div>
 </div>
 
 <!-- USP GRID -->
 <section class="section" id="features">
-  <p class="section-eyebrow">Warum Freiraum</p>
-  <h2>Gym neu gedacht.<br>Für echte Leute.</h2>
-  <p class="section-lead">Das klassische Fitness-Studio passt nicht mehr in deinen Alltag. Wir schon.</p>
+  <p class="section-eyebrow reveal">Warum Freiraum</p>
+  <h2 class="reveal">Gym neu gedacht.<br>Für echte Leute.</h2>
+  <p class="section-lead reveal">Das klassische Fitness-Studio passt nicht mehr in deinen Alltag. Wir schon.</p>
 
-  <div class="usp-grid">
+  <div class="usp-grid reveal-stagger">
     <div class="usp-card">
-      <div class="usp-icon-wrap">📱</div>
       <div class="usp-title">App ist dein Schlüssel</div>
       <p class="usp-text">Check-in per QR-Code. Kein Chip, keine Karte, kein Stress. Dein Smartphone öffnet die Tür – auch nachts um 3 Uhr.</p>
     </div>
     <div class="usp-card">
-      <div class="usp-icon-wrap"></div>
       <div class="usp-title">Dein Zeitplan</div>
       <p class="usp-text">Schichtdienst, Pendler, Frühaufsteher oder Nachteule – du trainierst wann es für dich passt. Punkt.</p>
     </div>
     <div class="usp-card">
-      <div class="usp-icon-wrap"></div>
       <div class="usp-title">Top-Ausrüstung</div>
       <p class="usp-text">Hochwertige Geräte für Kraft, Cardio und Functional Training. Videoanleitungen direkt am Gerät.</p>
     </div>
     <div class="usp-card">
-      <div class="usp-icon-wrap"></div>
       <div class="usp-title">Kein Jahresvertrag</div>
       <p class="usp-text">Monatlich kündbar. Weil wir überzeugen wollen, nicht festhalten. Kein Kleingedrucktes, keine Fallen.</p>
     </div>
     <div class="usp-card">
-      <div class="usp-icon-wrap"></div>
       <div class="usp-title">Sicher &amp; hell</div>
       <p class="usp-text">Moderne HD-Kameras, helle Beleuchtung, direkter Notruf. Du bist nie wirklich allein – aber endlich mal in Ruhe.</p>
     </div>
     <div class="usp-card">
-      <div class="usp-icon-wrap"></div>
       <div class="usp-title">Direkt vor der Tür</div>
       <p class="usp-text">Kein 30-km-Trip in die Stadt. Dein Studio – in deiner Region, in deiner Gemeinde.</p>
     </div>
@@ -535,10 +608,10 @@
 <!-- VS TABLE -->
 <div class="section-full">
   <div class="section-inner">
-    <p class="section-eyebrow">Der Vergleich</p>
-    <h2>Wir gegen das alte Modell.</h2>
-    <p class="section-lead" style="margin-bottom:2rem;">Kein Gym im Umkreis macht dir das nach.</p>
-    <div class="compare-wrap">
+    <p class="section-eyebrow reveal">Der Vergleich</p>
+    <h2 class="reveal">Wir gegen das alte Modell.</h2>
+    <p class="section-lead reveal" style="margin-bottom:2rem;">Kein Gym im Umkreis macht dir das nach.</p>
+    <div class="compare-wrap reveal">
       <table class="compare-table">
         <thead>
           <tr>
@@ -586,7 +659,7 @@
 
 <!-- FORM -->
 <section class="form-section" id="anmelden">
-  <div class="form-left">
+  <div class="form-left reveal">
     <p class="section-eyebrow">Sei dabei</p>
     <h2>Sichere dir deinen Gründerpreis.</h2>
     <p class="section-lead">
@@ -597,7 +670,7 @@
     </div>
   </div>
 
-  <div class="form-card">
+  <div class="form-card reveal">
     <h3>Jetzt vormerken</h3>
     <p class="form-subtitle">Kostenlos &amp; unverbindlich — kein Abo, kein Risiko.</p>
 
@@ -659,6 +732,25 @@
     document.getElementById('signup-form').style.display = 'none';
     document.getElementById('success').style.display = 'block';
   }
+
+  const revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+  revealEls.forEach(el => revealObserver.observe(el));
+
+  fetch('https://app.forminit.com/forms/tf6xrs24nqs', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'Accept': 'application/json'
+        }
+    })
 </script>
 </body>
 </html>
